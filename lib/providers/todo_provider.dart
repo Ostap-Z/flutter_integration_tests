@@ -19,37 +19,7 @@ class TodoProvider extends ChangeNotifier {
         date: "Jan 27, 2023",
         time: "3:00 PM",
         description: "",
-        category: "Important"),
-    Todo(
-        title: "Breakfast Meeting",
-        date: "Jan 30, 2023",
-        time: "9:30 AM",
-        description: "With department heads",
-        category: "Urgent"),
-    Todo(
-        title: "Lunch at Zambino's with Greg",
-        date: "Jan 28, 2023",
-        time: "12:00 PM",
-        description: "To discuss Exodus presentation",
-        category: "Not Important"),
-    Todo(
-        title: "Cycle training",
-        date: "Jan 27, 2023",
-        time: "5:00 PM",
-        description: "",
-        category: "Not Important"),
-    Todo(
-        title: "Wash laundry",
-        date: "Jan 28, 2023",
-        time: "",
-        description: "",
-        category: "Important"),
-    Todo(
-        title: "Dinner with in-laws",
-        date: "Jan 30, 2023",
-        time: "5:00 PM",
-        description: "",
-        category: "Important"),
+        category: "Important")
   ];
 
   List<Todo> get deletedTodos {
