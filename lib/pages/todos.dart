@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/components/add_todo_modal_bottom_sheet.dart';
-import 'package:todo_app/components/search_bar.dart';
+import 'package:todo_app/components/search_bar.dart' as search_bar;
 import 'package:todo_app/components/todo_tile.dart';
 import 'package:todo_app/providers/todo_provider.dart';
 
@@ -25,7 +25,7 @@ class TodosPage extends StatelessWidget {
         onPressed: () => showModalBottomSheet(
           context: context,
           builder: (BuildContext context) =>
-              Wrap(children: const [AddTaskModalBottomSheet()]),
+              const Wrap(children: [AddTaskModalBottomSheet()]),
         ),
         child: const Icon(
           LineIcons.plus,
@@ -35,10 +35,13 @@ class TodosPage extends StatelessWidget {
         padding: const EdgeInsets.all(30),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            const Expanded(child: SearchBar()),
+            const Expanded(child: search_bar.SearchBar()),
             IconButton(
               onPressed: () {},
-              icon: const Icon(LineIcons.horizontalSliders,color: Colors.black,),
+              icon: const Icon(
+                LineIcons.horizontalSliders,
+                color: Colors.black,
+              ),
             ),
           ]),
           Expanded(

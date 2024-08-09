@@ -33,6 +33,7 @@ class _AddTaskModalBottomSheetState extends State<AddTaskModalBottomSheet> {
       padding: const EdgeInsets.only(top: 10, right: 40, left: 40),
       child: Column(children: [
         TextField(
+          key: const ValueKey('todoTitleTextField'),
           controller: titleController,
           decoration: const InputDecoration(
             hintText: "Title",
@@ -42,6 +43,7 @@ class _AddTaskModalBottomSheetState extends State<AddTaskModalBottomSheet> {
         Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 20),
           child: TextField(
+            key: const ValueKey('todoDescriptionTextField'),
             controller: descriptionController,
             decoration: const InputDecoration(hintText: "Description"),
             style: const TextStyle(fontSize: 12),
