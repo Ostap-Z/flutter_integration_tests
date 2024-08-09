@@ -4,7 +4,7 @@ import '../components/todo_tile_component.dart';
 import '../pages/todo/to_do_page.dart';
 import 'package:todo_app/main.dart' as todo_app;
 
-class App {
+final class App {
   final WidgetTester tester;
   late final TodoTileComponent _todoTileComponent = TodoTileComponent(tester);
   late final TodoListPage todoListPage =

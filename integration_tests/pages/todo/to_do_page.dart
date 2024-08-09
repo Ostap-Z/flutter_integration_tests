@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../components/todo_tile_component.dart';
 import '../abstract_page.dart';
 
-class TodoListPage extends AbstractPage {
+final class TodoListPage extends AbstractPage {
   final TodoTileComponent todoTileComponent;
 
   TodoListPage(super.tester, this.todoTileComponent);

@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:todo_app/components/todo_tile.dart';
 import 'abstract_component.dart';
 
-class TodoTileComponent extends AbstractComponent {
+final class TodoTileComponent extends AbstractComponent {
   TodoTileComponent(super.tester);
 
   @override
