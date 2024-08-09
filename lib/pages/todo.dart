@@ -75,6 +75,7 @@ class TodoPage extends StatelessWidget {
             Text(
               todo.title,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              key: const ValueKey('todoTitle'),
             ),
             const Divider(),
             const Padding(padding: EdgeInsets.only(top: 8)),
@@ -82,7 +83,8 @@ class TodoPage extends StatelessWidget {
               visible: todo.description.isNotEmpty,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 30),
-                child: Text(todo.description),
+                child: Text(todo.description,
+                    key: const ValueKey('todoDescription')),
               ),
             ),
             Row(
