@@ -4,17 +4,17 @@ import 'package:integration_test/integration_test.dart';
 import '../app/app.dart';
 import '../constants/tags.dart';
 
+final List<Tag> tags = [
+  Tag.urgent,
+  Tag.important,
+  Tag.notImportant,
+];
+
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
   group('TODO creation', () {
-    final List<Tag> tags = [
-      Tag.urgent,
-      Tag.important,
-      Tag.notImportant,
-    ];
-
     testWidgets('Verify todo could be created with a title and description',
         (WidgetTester tester) async {
       final App app = App(tester);
@@ -27,7 +27,7 @@ void main() {
           await app.todoListPage.todoTileComponent.hasTitle(title);
 
       expect(isTodoCreated, true, reason: 'Todo is not created');
-    });
+    }, tags: ['create_todo', 'smoke']);
 
     testWidgets('Verify todo could be created only with a title',
         (WidgetTester tester) async {
@@ -41,7 +41,7 @@ void main() {
           await app.todoListPage.todoTileComponent.hasTitle(title);
 
       expect(isTodoCreated, true, reason: 'Todo is not created');
-    });
+    }, tags: ['create_todo', 'smoke']);
 
     for (final Tag tag in tags) {
       testWidgets('Verify the ${tag.value} todo could be created',
@@ -59,7 +59,7 @@ void main() {
 
         expect(isTodoCreated, true, reason: 'Todo is not created');
         expect(isTodoHasText, true, reason: 'Invalid todo tag');
-      });
+      }, tags: ['create_todo', 'smoke']);
     }
   });
 }
