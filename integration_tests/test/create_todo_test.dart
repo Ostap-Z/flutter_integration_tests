@@ -9,10 +9,10 @@ void main() {
   binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
   group('TODO creation', () {
-    final List<TodoTag> tags = [
-      TodoTag.urgent,
-      TodoTag.important,
-      TodoTag.notImportant,
+    final List<Tag> tags = [
+      Tag.urgent,
+      Tag.important,
+      Tag.notImportant,
     ];
 
     testWidgets('Verify todo could be created with a title and description',
@@ -43,7 +43,7 @@ void main() {
       expect(isTodoCreated, true, reason: 'Todo is not created');
     });
 
-    for (final TodoTag tag in tags) {
+    for (final Tag tag in tags) {
       testWidgets('Verify the ${tag.value} todo could be created',
           (WidgetTester tester) async {
         final App app = App(tester);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:todo_app/pages/completed_todos.dart';
 import 'package:todo_app/pages/deleted_todos.dart';
 import 'package:todo_app/pages/todos.dart';
@@ -29,6 +30,7 @@ class Body extends StatelessWidget {
             ),
             Tab(
               text: "Deleted",
+              key: ValueKey('deletedTab'),
             )
           ],
         ),

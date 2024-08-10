@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/todo.dart';
@@ -30,14 +31,17 @@ class TodoPage extends StatelessWidget {
                 closePage();
                 closePage();
               },
-              child: const Text("Yes"),
+              child: const Text("Yes", key: ValueKey('confirmDelete')),
             ),
             const Padding(padding: EdgeInsets.only(right: 15)),
             InkWell(
               onTap: () {
                 closePage();
               },
-              child: const Text("No"),
+              child: const Text(
+                "No",
+                key: ValueKey('cancelDelete'),
+              ),
             ),
           ],
         ),
@@ -63,6 +67,7 @@ class TodoPage extends StatelessWidget {
                 child: const Icon(
                   LineIcons.trash,
                   color: Colors.black,
+                  key: ValueKey('deleteTodo'),
                 ),
               ),
             ),

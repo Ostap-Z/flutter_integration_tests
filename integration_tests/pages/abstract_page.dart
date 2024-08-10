@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-abstract class AbstractPage {
+abstract base class AbstractPage {
   late WidgetTester tester;
 
   AbstractPage(this.tester);
