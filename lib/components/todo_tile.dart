@@ -79,19 +79,21 @@ class _TodoTileState extends State<TodoTile> {
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [ 
+              children: [
                 InkWell(
-                    onTap: () => provider.toggleToBeDeleted(todo),
-                    child: todo.toBeDeleted
-                        ? const Text("restore")
-                        : const Text(""),
-                  ),
-                  const Spacer(),
-                  Text(
-                    todo.category,
-                    style: const TextStyle(fontSize: 12, color: Colors.grey),
-                  ),
-                
+                  onTap: () => provider.toggleToBeDeleted(todo),
+                  child: todo.toBeDeleted
+                      ? const Text(
+                          "restore",
+                          key: ValueKey('restoreTodo'),
+                        )
+                      : const Text(""),
+                ),
+                const Spacer(),
+                Text(
+                  todo.category,
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                ),
               ],
             )
           ]),

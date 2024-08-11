@@ -4,3 +4,5 @@ tags:
   delete_todo: {}
   create_todo: {}
   complete_todo: {}
+  uncomplete_todo: {}
+  restore_todo: {}

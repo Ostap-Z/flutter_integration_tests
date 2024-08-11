@@ -23,6 +23,26 @@ final class TodoTileComponent extends AbstractComponent {
     await tester.pumpAndSettle();
   }
 
+  Future<void> uncomplete(String title) async {
+    final Finder todo = _getTodoByTitle(title);
+    final Finder row = find.ancestor(of: todo, matching: find.byType(Row));
+    final Finder completedIcon =
+        find.descendant(of: row, matching: find.byIcon(LineIcons.checkCircle));
+
+    await tester.tap(completedIcon, warnIfMissed: true);
+    await tester.pumpAndSettle();
+  }
+
+  Future<void> restore(String title) async {
+    final Finder todo = _getTodoByTitle(title);
+    final Finder row = find.ancestor(of: todo, matching: find.byType(Row));
+    final Finder restore = find.descendant(
+        of: row, matching: find.byKey(const ValueKey('restoreTodo')));
+
+    await tester.tap(restore, warnIfMissed: true);
+    await tester.pumpAndSettle();
+  }
+
   Future<bool> hasTitle(String title) async {
     final Finder todo = _getTodoByTitle(title);
     return tester.any(todo);
