@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import '../app/app.dart';
-import '../constants/tabs.dart';
+import '../constants/tabs.dart' as tabs;
 import '../constants/todo_tile.dart';
 
 final List<Tag> tags = [
@@ -15,9 +15,9 @@ void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
-  group('TODO deletion', () {
+  group('TODO complete', () {
     for (final Tag tag in tags) {
-      testWidgets('Verify the ${tag.value} todo could be deleted',
+      testWidgets('Verify the ${tag.value} todo could be completed',
           (WidgetTester tester) async {
         final App app = App(tester);
         const String title = 'Test title';
@@ -25,16 +25,17 @@ void main() {
 
         await app.launch();
         await app.todoListPage.addTodo(title, description, tag: tag.value);
-        await app.todoListPage.openTodoDetails(title);
-        await app.todoDetailsPage.deleteTodo();
-        await app.todoDetailsPage.deleteTodoModalComponent.confirm();
-        await app.todoListPage.tabComponent.openTab(Tab.deleted);
+        await app.todoListPage.todoTileComponent.complete(title);
+        await app.todoListPage.tabComponent.openTab(tabs.Tab.completed);
         final bool isPresentInDeletedList =
-            await app.todoDeletedPage.todoTileComponent.hasTitle(title);
+            await app.todoCompletedPage.todoTileComponent.hasTitle(title);
+        final bool isMarkedCompleted = await app
+            .todoCompletedPage.todoTileComponent
+            .hasStatus(title, Status.completed);
 
-        expect(isPresentInDeletedList, true,
-            reason: 'Todo is not in the deleted list');
-      }, tags: ['delete_todo', 'regression']);
+        expect(isPresentInDeletedList, true, reason: 'Todo is not completed');
+        expect(isMarkedCompleted, true, reason: 'Todo is not checked');
+      }, tags: ['complete_todo', 'smoke']);
     }
   });
 }

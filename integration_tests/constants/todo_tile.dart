@@ -18,3 +18,8 @@ extension TodoTagExtension on Tag {
     }
   }
 }
+
+enum Status {
+  completed,
+  active,
+}

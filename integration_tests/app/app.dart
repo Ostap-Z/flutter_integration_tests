@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../components/modals/delete_todo_modal.dart';
 import '../components/tab.dart';
 import '../components/todo_tile_component.dart';
+import '../pages/todo_completed/todo_completed_page.dart';
 import '../pages/todo_deleted/todo_deleted_page.dart';
 import '../pages/todo_details/todo_details_page.dart';
 import '../pages/todo_list/todo_list_page.dart';
@@ -22,6 +23,8 @@ final class App {
       TodoDetailsPage(_tester, _deleteTodoModalComponent);
   late final TodoDeletedPage todoDeletedPage =
       TodoDeletedPage(_tester, _todoTileComponent, _tabComponent);
+  late final TodoCompletedPage todoCompletedPage =
+      TodoCompletedPage(_tester, _todoTileComponent, _tabComponent);
 
   App(this._tester);
 

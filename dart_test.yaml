@@ -3,3 +3,4 @@ tags:
   regression: {}
   delete_todo: {}
   create_todo: {}
+  complete_todo: {}

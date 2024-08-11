@@ -25,7 +25,7 @@ final class TodoListPage extends AbstractPage {
     await tester.tap(_addTodoIconLocator, warnIfMissed: true);
     await tester.pumpAndSettle();
     await tester.enterText(_todoTitleTextField, title);
-    await tester.enterText(_todoDescriptionTextField, title);
+    await tester.enterText(_todoDescriptionTextField, description);
 
     if (tag != null) {
       await _setTag(tag);
