@@ -43,6 +43,10 @@ final class TodoTileComponent extends AbstractComponent {
     await tester.pumpAndSettle();
   }
 
+  Future<int> getTodoAmount() async {
+    return find.byType(TodoTile).evaluate().length;
+  }
+
   Future<bool> hasTitle(String title) async {
     final Finder todo = _getTodoByTitle(title);
     return tester.any(todo);

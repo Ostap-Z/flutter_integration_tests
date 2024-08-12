@@ -1,8 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import '../components/modals/delete_todo_modal.dart';
+import '../components/search.dart';
 import '../components/tab.dart';
 import '../components/todo_tile_component.dart';
+import '../pages/search_results/search_results_page.dart';
 import '../pages/todo_completed/todo_completed_page.dart';
 import '../pages/todo_deleted/todo_deleted_page.dart';
 import '../pages/todo_details/todo_details_page.dart';
@@ -16,15 +18,18 @@ final class App {
   late final DeleteTodoModalComponent _deleteTodoModalComponent =
       DeleteTodoModalComponent(_tester);
   late final TabComponent _tabComponent = TabComponent(_tester);
+  late final SearchComponent _searchComponent = SearchComponent(_tester);
 
-  late final TodoListPage todoListPage =
-      TodoListPage(_tester, _todoTileComponent, _tabComponent);
+  late final TodoListPage todoListPage = TodoListPage(
+      _tester, _todoTileComponent, _tabComponent, _searchComponent);
   late final TodoDetailsPage todoDetailsPage =
       TodoDetailsPage(_tester, _deleteTodoModalComponent);
   late final TodoDeletedPage todoDeletedPage =
       TodoDeletedPage(_tester, _todoTileComponent, _tabComponent);
   late final TodoCompletedPage todoCompletedPage =
       TodoCompletedPage(_tester, _todoTileComponent, _tabComponent);
+  late final SearchResultsPage searchResultsPage =
+      SearchResultsPage(_tester, _todoTileComponent);
 
   App(this._tester);
 

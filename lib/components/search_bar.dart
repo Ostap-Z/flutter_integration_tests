@@ -20,6 +20,7 @@ class _SearchBarState extends State<SearchBar> {
         child: Padding(
           padding: const EdgeInsets.only(left: 8, bottom: 8),
           child: TextField(
+            key: const ValueKey('searchInput'),
             controller: controller,
             textInputAction: TextInputAction.search,
             onSubmitted: (value) {

@@ -6,3 +6,4 @@ tags:
   complete_todo: {}
   uncomplete_todo: {}
   restore_todo: {}
+  search_todo: {}

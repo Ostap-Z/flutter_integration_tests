@@ -3,6 +3,7 @@ import 'package:line_icons/line_icons.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../components/search.dart';
 import '../../components/tab.dart';
 import '../../components/todo_tile_component.dart';
 import '../abstract_page.dart';
@@ -10,8 +11,10 @@ import '../abstract_page.dart';
 final class TodoListPage extends AbstractPage {
   final TodoTileComponent todoTileComponent;
   final TabComponent tabComponent;
+  final SearchComponent searchComponent;
 
-  TodoListPage(super.tester, this.todoTileComponent, this.tabComponent);
+  TodoListPage(super.tester, this.todoTileComponent, this.tabComponent,
+      this.searchComponent);
 
   final Finder _addTodoIconLocator = find.byType(FloatingActionButton);
   final Finder _todoTitleTextField =
