@@ -4,6 +4,7 @@ import '../components/modals/delete_todo_modal.dart';
 import '../components/search.dart';
 import '../components/tab.dart';
 import '../components/todo_tile_component.dart';
+import '../pages/category/category_page.dart';
 import '../pages/search_results/search_results_page.dart';
 import '../pages/todo_completed/todo_completed_page.dart';
 import '../pages/todo_deleted/todo_deleted_page.dart';
@@ -30,6 +31,7 @@ final class App {
       TodoCompletedPage(_tester, _todoTileComponent, _tabComponent);
   late final SearchResultsPage searchResultsPage =
       SearchResultsPage(_tester, _todoTileComponent);
+  late final CategoryPage categoryPage = CategoryPage(_tester);
 
   App(this._tester);
 

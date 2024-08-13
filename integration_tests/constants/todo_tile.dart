@@ -1,17 +1,17 @@
-enum Tag {
+enum Category {
   urgent,
   important,
   notImportant,
 }
 
-extension TodoTagExtension on Tag {
+extension CategoryExtension on Category {
   String get value {
     switch (this) {
-      case Tag.urgent:
+      case Category.urgent:
         return 'Urgent';
-      case Tag.important:
+      case Category.important:
         return 'Important';
-      case Tag.notImportant:
+      case Category.notImportant:
         return 'Not Important';
       default:
         return '';

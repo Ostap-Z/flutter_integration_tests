@@ -4,10 +4,10 @@ import 'package:integration_test/integration_test.dart';
 import '../app/app.dart';
 import '../constants/todo_tile.dart';
 
-final List<Tag> tags = [
-  Tag.urgent,
-  Tag.important,
-  Tag.notImportant,
+final List<Category> categories = [
+  Category.urgent,
+  Category.important,
+  Category.notImportant,
 ];
 
 void main() {
@@ -43,19 +43,20 @@ void main() {
       expect(isTodoCreated, true, reason: 'Todo is not created');
     }, tags: ['create_todo', 'smoke']);
 
-    for (final Tag tag in tags) {
-      testWidgets('Verify the ${tag.value} todo could be created',
+    for (final Category category in categories) {
+      testWidgets('Verify the ${category.value} todo could be created',
           (WidgetTester tester) async {
         final App app = App(tester);
         const String title = 'Custom todo';
         const String description = 'Test description';
 
         await app.launch();
-        await app.todoListPage.addTodo(title, description, tag: tag.value);
+        await app.todoListPage
+            .addTodo(title, description, category: category.value);
         final bool isTodoCreated =
             await app.todoListPage.todoTileComponent.hasTitle(title);
-        final bool isTodoHasText =
-            await app.todoListPage.todoTileComponent.hasTag(title, tag.value);
+        final bool isTodoHasText = await app.todoListPage.todoTileComponent
+            .hasTag(title, category.value);
 
         expect(isTodoCreated, true, reason: 'Todo is not created');
         expect(isTodoHasText, true, reason: 'Invalid todo tag');

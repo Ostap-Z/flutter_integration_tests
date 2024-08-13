@@ -5,10 +5,10 @@ import '../app/app.dart';
 import '../constants/tabs.dart' as tabs;
 import '../constants/todo_tile.dart';
 
-final List<Tag> tags = [
-  Tag.urgent,
-  Tag.important,
-  Tag.notImportant,
+final List<Category> categories = [
+  Category.urgent,
+  Category.important,
+  Category.notImportant,
 ];
 
 void main() {
@@ -16,15 +16,16 @@ void main() {
   binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
   group('TODO modify status', () {
-    for (final Tag tag in tags) {
-      testWidgets('Verify the ${tag.value} todo could be completed',
+    for (final Category category in categories) {
+      testWidgets('Verify the ${category.value} todo could be completed',
           (WidgetTester tester) async {
         final App app = App(tester);
         const String title = 'Test title';
         const String description = 'Test Description';
 
         await app.launch();
-        await app.todoListPage.addTodo(title, description, tag: tag.value);
+        await app.todoListPage
+            .addTodo(title, description, category: category.value);
         await app.todoListPage.todoTileComponent.complete(title);
         await app.todoListPage.tabComponent.openTab(tabs.Tab.completed);
         final bool isPresentInDeletedList =
@@ -37,14 +38,15 @@ void main() {
         expect(isMarkedCompleted, true, reason: 'Todo is not checked');
       }, tags: ['complete_todo', 'smoke']);
 
-      testWidgets('Verify the ${tag.value} todo could be uncompleted',
+      testWidgets('Verify the ${category.value} todo could be uncompleted',
           (WidgetTester tester) async {
         final App app = App(tester);
         const String title = 'Test title';
         const String description = 'Test Description';
 
         await app.launch();
-        await app.todoListPage.addTodo(title, description, tag: tag.value);
+        await app.todoListPage
+            .addTodo(title, description, category: category.value);
         await app.todoListPage.todoTileComponent.complete(title);
         await app.todoListPage.tabComponent.openTab(tabs.Tab.completed);
         await app.todoCompletedPage.todoTileComponent.uncomplete(title);
@@ -54,14 +56,15 @@ void main() {
         expect(isPresentInTodoList, true, reason: 'Todo is not uncompleted');
       }, tags: ['uncomplete_todo', 'smoke']);
 
-      testWidgets('Verify the ${tag.value} todo could be deleted',
+      testWidgets('Verify the ${category.value} todo could be deleted',
           (WidgetTester tester) async {
         final App app = App(tester);
         const String title = 'Test title';
         const String description = 'Test Description';
 
         await app.launch();
-        await app.todoListPage.addTodo(title, description, tag: tag.value);
+        await app.todoListPage
+            .addTodo(title, description, category: category.value);
         await app.todoListPage.openTodoDetails(title);
         await app.todoDetailsPage.deleteTodo();
         await app.todoDetailsPage.deleteTodoModalComponent.confirm();
@@ -73,14 +76,15 @@ void main() {
             reason: 'Todo is not in the deleted list');
       }, tags: ['delete_todo', 'regression']);
 
-      testWidgets('Verify the ${tag.value} todo could be restored',
+      testWidgets('Verify the ${category.value} todo could be restored',
           (WidgetTester tester) async {
         final App app = App(tester);
         const String title = 'Test title';
         const String description = 'Test Description';
 
         await app.launch();
-        await app.todoListPage.addTodo(title, description, tag: tag.value);
+        await app.todoListPage
+            .addTodo(title, description, category: category.value);
         await app.todoListPage.openTodoDetails(title);
         await app.todoDetailsPage.deleteTodo();
         await app.todoDetailsPage.deleteTodoModalComponent.confirm();

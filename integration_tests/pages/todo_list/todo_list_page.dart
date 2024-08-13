@@ -7,6 +7,7 @@ import '../../components/search.dart';
 import '../../components/tab.dart';
 import '../../components/todo_tile_component.dart';
 import '../abstract_page.dart';
+import '../category/category_page.dart';
 
 final class TodoListPage extends AbstractPage {
   final TodoTileComponent todoTileComponent;
@@ -24,14 +25,17 @@ final class TodoListPage extends AbstractPage {
   final Finder _createTodoIcon = find.byIcon(LineIcons.paperPlane);
   final Finder _todoTag = find.byIcon(LineIcons.tag);
 
-  Future<void> addTodo(String title, String description, {String? tag}) async {
+  Future<void> addTodo(String title, String description,
+      {String? category}) async {
     await tester.tap(_addTodoIconLocator, warnIfMissed: true);
     await tester.pumpAndSettle();
     await tester.enterText(_todoTitleTextField, title);
     await tester.enterText(_todoDescriptionTextField, description);
 
-    if (tag != null) {
-      await _setTag(tag);
+    if (category != null) {
+      await tester.tap(_todoTag);
+      await tester.pumpAndSettle();
+      await CategoryPage(tester).setCategory(category);
     }
 
     await tester.tap(_createTodoIcon, warnIfMissed: true);
@@ -42,18 +46,6 @@ final class TodoListPage extends AbstractPage {
     final todo = find.descendant(
         of: todoTileComponent.rootFinder, matching: find.text(title));
     await tester.tap(todo, warnIfMissed: true);
-    await tester.pumpAndSettle();
-  }
-
-  Future<void> _setTag(String tag) async {
-    final tagText = find.text(tag);
-    final tagRow = find.ancestor(of: tagText, matching: find.byType((Row)));
-    final tagAddIcon =
-        find.descendant(of: tagRow, matching: find.byIcon(LineIcons.plus));
-
-    await tester.tap(_todoTag);
-    await tester.pumpAndSettle();
-    await tester.tap(tagAddIcon, warnIfMissed: true);
     await tester.pumpAndSettle();
   }
 }
