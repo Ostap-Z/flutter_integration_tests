@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../components/search.dart';
 import '../../components/tab.dart';
 import '../../components/todo_tile_component.dart';
+import '../../constants/todo_tile.dart';
 import '../abstract_page.dart';
 import '../category/category_page.dart';
 
@@ -33,9 +34,16 @@ final class TodoListPage extends AbstractPage {
     await tester.enterText(_todoDescriptionTextField, description);
 
     if (category != null) {
+      final CategoryPage categoryPage = CategoryPage(tester);
       await tester.tap(_todoTag);
       await tester.pumpAndSettle();
-      await CategoryPage(tester).setCategory(category);
+
+      if (category != Category.custom.value) {
+        await categoryPage.set(category);
+      } else {
+        await categoryPage.create(category);
+        await categoryPage.set(category);
+      }
     }
 
     await tester.tap(_createTodoIcon, warnIfMissed: true);

@@ -8,6 +8,7 @@ final List<Category> categories = [
   Category.urgent,
   Category.important,
   Category.notImportant,
+  Category.custom,
 ];
 
 void main() {

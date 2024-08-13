@@ -2,6 +2,7 @@ enum Category {
   urgent,
   important,
   notImportant,
+  custom,
 }
 
 extension CategoryExtension on Category {
@@ -13,6 +14,8 @@ extension CategoryExtension on Category {
         return 'Important';
       case Category.notImportant:
         return 'Not Important';
+      case Category.custom:
+        return 'Custom category';
       default:
         return '';
     }

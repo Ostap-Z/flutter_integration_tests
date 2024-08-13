@@ -12,6 +12,7 @@ class AddCategoryModalBottomSheet extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
+              key: const ValueKey('categoryInput'),
               controller: controller,
               decoration: const InputDecoration(
                   hintText: "Category", hintStyle: TextStyle(fontSize: 12)),
@@ -23,7 +24,11 @@ class AddCategoryModalBottomSheet extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context, controller.text);
             },
-            child: const Text("Add", style: TextStyle(color: Colors.white)),
+            child: const Text(
+              "Add",
+              style: TextStyle(color: Colors.white),
+              key: ValueKey('addCategoryIcon'),
+            ),
           ),
         ],
       ),
