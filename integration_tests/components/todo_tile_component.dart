@@ -19,7 +19,7 @@ final class TodoTileComponent extends AbstractComponent {
     final Finder uncompletedIcon =
         find.descendant(of: row, matching: find.byIcon(LineIcons.circle));
 
-    await tester.tap(uncompletedIcon, warnIfMissed: true);
+    await tester.tap(uncompletedIcon);
     await tester.pumpAndSettle();
   }
 
@@ -29,7 +29,7 @@ final class TodoTileComponent extends AbstractComponent {
     final Finder completedIcon =
         find.descendant(of: row, matching: find.byIcon(LineIcons.checkCircle));
 
-    await tester.tap(completedIcon, warnIfMissed: true);
+    await tester.tap(completedIcon);
     await tester.pumpAndSettle();
   }
 
@@ -39,7 +39,7 @@ final class TodoTileComponent extends AbstractComponent {
     final Finder restore = find.descendant(
         of: row, matching: find.byKey(const ValueKey('restoreTodo')));
 
-    await tester.tap(restore, warnIfMissed: true);
+    await tester.tap(restore);
     await tester.pumpAndSettle();
   }
 
@@ -52,10 +52,11 @@ final class TodoTileComponent extends AbstractComponent {
     return tester.any(todo);
   }
 
-  Future<bool> hasTag(String title, String tag) async {
+  Future<bool> hasCategory(String title, String category) async {
     final Finder todo = _getTodoByTitle(title);
     final Finder row = find.ancestor(of: todo, matching: find.byType(Row));
-    final Finder tagText = find.descendant(of: row, matching: find.text(tag));
+    final Finder tagText =
+        find.descendant(of: row, matching: find.text(category));
 
     return tester.any(tagText);
   }
@@ -63,13 +64,21 @@ final class TodoTileComponent extends AbstractComponent {
   Future<bool> hasStatus(String title, Status status) async {
     final Finder todo = _getTodoByTitle(title);
     final Finder row = find.ancestor(of: todo, matching: find.byType(Row));
-    final Finder iconWidget = find.descendant(
+    final Finder statusIcon = find.descendant(
         of: row,
         matching: status == Status.completed
             ? find.byIcon(LineIcons.checkCircle)
             : find.byIcon(LineIcons.circle));
 
-    return tester.any(iconWidget);
+    return tester.any(statusIcon);
+  }
+
+  Future<bool> hasDate(String title, String date) async {
+    final Finder todo = _getTodoByTitle(title);
+    final Finder row = find.ancestor(of: todo, matching: find.byType(Row));
+    final Finder dateText = find.descendant(of: row, matching: find.text(date));
+
+    return tester.any(dateText);
   }
 
   Finder _getTodoByTitle(String title) {

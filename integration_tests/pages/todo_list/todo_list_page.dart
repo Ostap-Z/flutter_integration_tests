@@ -3,6 +3,7 @@ import 'package:line_icons/line_icons.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../components/calendar.dart';
 import '../../components/search.dart';
 import '../../components/tab.dart';
 import '../../components/todo_tile_component.dart';
@@ -24,19 +25,17 @@ final class TodoListPage extends AbstractPage {
   final Finder _todoDescriptionTextField =
       find.byKey(const ValueKey('todoDescriptionTextField'));
   final Finder _createTodoIcon = find.byIcon(LineIcons.paperPlane);
-  final Finder _todoTag = find.byIcon(LineIcons.tag);
 
   Future<void> addTodo(String title, String description,
-      {String? category}) async {
-    await tester.tap(_addTodoIconLocator, warnIfMissed: true);
+      {String? category, String? date}) async {
+    await tester.tap(_addTodoIconLocator);
     await tester.pumpAndSettle();
     await tester.enterText(_todoTitleTextField, title);
     await tester.enterText(_todoDescriptionTextField, description);
 
     if (category != null) {
       final CategoryPage categoryPage = CategoryPage(tester);
-      await tester.tap(_todoTag);
-      await tester.pumpAndSettle();
+      await categoryPage.clickCategoryIcon();
 
       if (category != Category.custom.value) {
         await categoryPage.set(category);
@@ -46,14 +45,20 @@ final class TodoListPage extends AbstractPage {
       }
     }
 
-    await tester.tap(_createTodoIcon, warnIfMissed: true);
+    if (date != null) {
+      final CalendarComponent calendarComponent = CalendarComponent(tester);
+      await calendarComponent.clickCalendarIcon();
+      await calendarComponent.set(date);
+    }
+
+    await tester.tap(_createTodoIcon);
     await tester.pumpAndSettle();
   }
 
   Future<void> openTodoDetails(String title) async {
     final todo = find.descendant(
         of: todoTileComponent.rootFinder, matching: find.text(title));
-    await tester.tap(todo, warnIfMissed: true);
+    await tester.tap(todo);
     await tester.pumpAndSettle();
   }
 }

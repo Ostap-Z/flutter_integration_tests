@@ -56,12 +56,30 @@ void main() {
             .addTodo(title, description, category: category.value);
         final bool isTodoCreated =
             await app.todoListPage.todoTileComponent.hasTitle(title);
-        final bool isTodoHasText = await app.todoListPage.todoTileComponent
-            .hasTag(title, category.value);
+        final bool hasCorrectCategory = await app.todoListPage.todoTileComponent
+            .hasCategory(title, category.value);
 
         expect(isTodoCreated, true, reason: 'Todo is not created');
-        expect(isTodoHasText, true, reason: 'Invalid todo tag');
+        expect(hasCorrectCategory, true, reason: 'Invalid todo tag');
       }, tags: ['create_todo', 'smoke']);
     }
+
+    testWidgets('Verify a todo could be created with a specified date',
+        (WidgetTester tester) async {
+      final App app = App(tester);
+      const String title = 'Custom todo';
+      const String description = 'Test description';
+      const String date = '09/30/2024';
+
+      await app.launch();
+      await app.todoListPage.addTodo(title, description, date: date);
+      final bool isTodoCreated =
+          await app.todoListPage.todoTileComponent.hasTitle(title);
+      final bool hasCorrectDate =
+          await app.todoListPage.todoTileComponent.hasDate(title, 'Sep 30');
+
+      expect(isTodoCreated, true, reason: 'Todo is not created');
+      expect(hasCorrectDate, true, reason: 'Invalid todo date');
+    }, tags: ['create_todo', 'smoke']);
   });
 }

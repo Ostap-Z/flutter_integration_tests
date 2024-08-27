@@ -16,13 +16,13 @@ final class DeleteTodoModalComponent extends AbstractModal {
 
   @override
   Future<void> confirm() async {
-    await tester.tap(_confirmIcon, warnIfMissed: true);
+    await tester.tap(_confirmIcon);
     await tester.pumpAndSettle();
   }
 
   @override
   Future<void> cancel() async {
-    await tester.tap(_cancelIcon, warnIfMissed: true);
+    await tester.tap(_cancelIcon);
     await tester.pumpAndSettle();
   }
 }

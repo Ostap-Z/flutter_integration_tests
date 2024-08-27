@@ -14,7 +14,7 @@ final class TabComponent extends AbstractComponent {
   Future<void> openTab(tabs.Tab tab) async {
     final tabFinder =
         find.descendant(of: rootFinder, matching: find.text(tab.value));
-    await tester.tap(tabFinder, warnIfMissed: true);
+    await tester.tap(tabFinder);
     await tester.pumpAndSettle();
   }
 }

@@ -13,7 +13,7 @@ final class TodoDetailsPage extends AbstractPage {
   final Finder _trashIcon = find.byKey(const ValueKey('deleteTodo'));
 
   Future<void> deleteTodo() async {
-    await tester.tap(_trashIcon, warnIfMissed: true);
+    await tester.tap(_trashIcon);
     await tester.pumpAndSettle();
   }
 }
