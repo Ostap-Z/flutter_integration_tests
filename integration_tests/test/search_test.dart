@@ -8,11 +8,14 @@ void main() {
   binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
   group('TODO search', () {
+    const String title = 'Test title';
+    const String description = 'Test Description';
+    const String notExistedTitle = 'Invalid title';
+    const String message = '0 items found';
+
     testWidgets('Verify todo could be found by title',
         (WidgetTester tester) async {
       final App app = App(tester);
-      const String title = 'Test title';
-      const String description = 'Test Description';
 
       await app.launch();
       await app.todoListPage.addTodo(title, description);
@@ -30,11 +33,9 @@ void main() {
     testWidgets('Verify error message is correct when todo is not found',
         (WidgetTester tester) async {
       final App app = App(tester);
-      const String title = 'Invalid title';
-      const String message = '0 items found';
 
       await app.launch();
-      await app.todoListPage.searchComponent.search(title);
+      await app.todoListPage.searchComponent.search(notExistedTitle);
       bool hasCorrectErrorMessage =
           await app.searchResultsPage.hasText(message);
 

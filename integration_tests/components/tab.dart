@@ -11,7 +11,7 @@ final class TabComponent extends AbstractComponent {
   @override
   final Finder rootFinder = find.byType(TabBar);
 
-  Future<void> openTab(tabs.Tab tab) async {
+  Future<void> open(tabs.Tab tab) async {
     final tabFinder =
         find.descendant(of: rootFinder, matching: find.text(tab.value));
     await tester.tap(tabFinder);

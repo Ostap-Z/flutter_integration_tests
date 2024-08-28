@@ -4,23 +4,27 @@ import 'package:integration_test/integration_test.dart';
 import '../app/app.dart';
 import '../constants/todo_tile.dart';
 
-final List<Category> categories = [
-  Category.urgent,
-  Category.important,
-  Category.notImportant,
-  Category.custom,
-];
-
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
   group('TODO creation', () {
+    const String title = 'Test title';
+    const String description = 'Test Description';
+    const String descriptionEmpty = '';
+    const String date = '09/30/2024';
+    const String time = '20:15';
+
+    final List<Category> categories = [
+      Category.urgent,
+      Category.important,
+      Category.notImportant,
+      Category.custom,
+    ];
+
     testWidgets('Verify todo could be created with a title and description',
         (WidgetTester tester) async {
       final App app = App(tester);
-      const String title = 'Test title';
-      const String description = 'Test Description';
 
       await app.launch();
       await app.todoListPage.addTodo(title, description);
@@ -33,11 +37,9 @@ void main() {
     testWidgets('Verify todo could be created only with a title',
         (WidgetTester tester) async {
       final App app = App(tester);
-      const String title = 'Test title empty description';
-      const String description = '';
 
       await app.launch();
-      await app.todoListPage.addTodo(title, description);
+      await app.todoListPage.addTodo(title, descriptionEmpty);
       final bool hasCorrectTitle =
           await app.todoListPage.todoTileComponent.hasTitle(title);
 
@@ -48,8 +50,6 @@ void main() {
       testWidgets('Verify the ${category.value} todo could be created',
           (WidgetTester tester) async {
         final App app = App(tester);
-        const String title = 'Custom todo';
-        const String description = 'Test description';
 
         await app.launch();
         await app.todoListPage
@@ -64,9 +64,6 @@ void main() {
     testWidgets('Verify a todo could be created with a specified date',
         (WidgetTester tester) async {
       final App app = App(tester);
-      const String title = 'Custom todo';
-      const String description = 'Test description';
-      const String date = '09/30/2024';
 
       await app.launch();
       await app.todoListPage.addTodo(title, description, date: date);
@@ -79,9 +76,6 @@ void main() {
     testWidgets('Verify a todo could be created with a specified time',
         (WidgetTester tester) async {
       final App app = App(tester);
-      const String title = 'Custom todo';
-      const String description = 'Test description';
-      const String time = '20:15';
 
       await app.launch();
       await app.todoListPage.addTodo(title, description, time: time);

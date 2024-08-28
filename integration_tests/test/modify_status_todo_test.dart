@@ -5,30 +5,31 @@ import '../app/app.dart';
 import '../constants/tabs.dart' as tabs;
 import '../constants/todo_tile.dart';
 
-final List<Category> categories = [
-  Category.urgent,
-  Category.important,
-  Category.notImportant,
-  Category.custom,
-];
-
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
   group('TODO modify status', () {
+    final List<Category> categories = [
+      Category.urgent,
+      Category.important,
+      Category.notImportant,
+      Category.custom,
+    ];
+
+    const String title = 'Test title';
+    const String description = 'Test Description';
+
     for (final Category category in categories) {
       testWidgets('Verify the ${category.value} todo could be completed',
           (WidgetTester tester) async {
         final App app = App(tester);
-        const String title = 'Test title';
-        const String description = 'Test Description';
 
         await app.launch();
         await app.todoListPage
             .addTodo(title, description, category: category.value);
         await app.todoListPage.todoTileComponent.complete(title);
-        await app.todoListPage.tabComponent.openTab(tabs.Tab.completed);
+        await app.todoListPage.tabComponent.open(tabs.Tab.completed);
         final bool isPresentInDeletedList =
             await app.todoCompletedPage.todoTileComponent.hasTitle(title);
         final bool isMarkedCompleted = await app
@@ -42,16 +43,14 @@ void main() {
       testWidgets('Verify the ${category.value} todo could be uncompleted',
           (WidgetTester tester) async {
         final App app = App(tester);
-        const String title = 'Test title';
-        const String description = 'Test Description';
 
         await app.launch();
         await app.todoListPage
             .addTodo(title, description, category: category.value);
         await app.todoListPage.todoTileComponent.complete(title);
-        await app.todoListPage.tabComponent.openTab(tabs.Tab.completed);
+        await app.todoListPage.tabComponent.open(tabs.Tab.completed);
         await app.todoCompletedPage.todoTileComponent.uncomplete(title);
-        await app.todoListPage.tabComponent.openTab(tabs.Tab.todo);
+        await app.todoListPage.tabComponent.open(tabs.Tab.todo);
         final bool isPresentInTodoList =
             await app.todoListPage.todoTileComponent.hasTitle(title);
         expect(isPresentInTodoList, true, reason: 'Todo is not uncompleted');
@@ -60,8 +59,6 @@ void main() {
       testWidgets('Verify the ${category.value} todo could be deleted',
           (WidgetTester tester) async {
         final App app = App(tester);
-        const String title = 'Test title';
-        const String description = 'Test Description';
 
         await app.launch();
         await app.todoListPage
@@ -69,7 +66,7 @@ void main() {
         await app.todoListPage.openTodoDetails(title);
         await app.todoDetailsPage.deleteTodo();
         await app.todoDetailsPage.deleteTodoModalComponent.confirm();
-        await app.todoListPage.tabComponent.openTab(tabs.Tab.deleted);
+        await app.todoListPage.tabComponent.open(tabs.Tab.deleted);
         final bool isPresentInDeletedList =
             await app.todoDeletedPage.todoTileComponent.hasTitle(title);
 
@@ -80,8 +77,6 @@ void main() {
       testWidgets('Verify the ${category.value} todo could be restored',
           (WidgetTester tester) async {
         final App app = App(tester);
-        const String title = 'Test title';
-        const String description = 'Test Description';
 
         await app.launch();
         await app.todoListPage
@@ -89,7 +84,7 @@ void main() {
         await app.todoListPage.openTodoDetails(title);
         await app.todoDetailsPage.deleteTodo();
         await app.todoDetailsPage.deleteTodoModalComponent.confirm();
-        await app.todoListPage.tabComponent.openTab(tabs.Tab.deleted);
+        await app.todoListPage.tabComponent.open(tabs.Tab.deleted);
         await app.todoDeletedPage.todoTileComponent.restore(title);
 
         final isPresentInDeletedList =
@@ -97,7 +92,7 @@ void main() {
         expect(isPresentInDeletedList, false,
             reason: 'Todo is in deleted list');
 
-        await app.todoListPage.tabComponent.openTab(tabs.Tab.todo);
+        await app.todoListPage.tabComponent.open(tabs.Tab.todo);
 
         final isPresentInTodoList =
             await app.todoListPage.todoTileComponent.hasTitle(title);
