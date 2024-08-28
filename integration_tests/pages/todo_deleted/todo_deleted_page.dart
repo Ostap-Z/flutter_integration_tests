@@ -1,5 +1,5 @@
 import '../../components/tab.dart';
-import '../../components/todo_tile_component.dart';
+import '../../components/todo_tile.dart';
 import '../abstract_page.dart';
 
 final class TodoDeletedPage extends AbstractPage {

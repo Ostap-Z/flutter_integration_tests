@@ -81,6 +81,14 @@ final class TodoTileComponent extends AbstractComponent {
     return tester.any(dateText);
   }
 
+  Future<bool> hasTime(String title, String time) async {
+    final Finder todo = _getTodoByTitle(title);
+    final Finder row = find.ancestor(of: todo, matching: find.byType(Row));
+    final Finder dateText = find.descendant(of: row, matching: find.text(time));
+
+    return tester.any(dateText);
+  }
+
   Finder _getTodoByTitle(String title) {
     return find.descendant(of: rootFinder, matching: find.text(title));
   }

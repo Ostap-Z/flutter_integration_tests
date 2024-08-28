@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../components/modals/delete_todo_modal.dart';
 import '../components/search.dart';
 import '../components/tab.dart';
-import '../components/todo_tile_component.dart';
+import '../components/todo_tile.dart';
 import '../pages/category/category_page.dart';
 import '../pages/search_results/search_results_page.dart';
 import '../pages/todo_completed/todo_completed_page.dart';

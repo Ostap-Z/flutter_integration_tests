@@ -1,4 +1,4 @@
-import '../../components/todo_tile_component.dart';
+import '../../components/todo_tile.dart';
 import '../abstract_page.dart';
 
 final class SearchResultsPage extends AbstractPage {

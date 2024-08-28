@@ -3,10 +3,11 @@ import 'package:line_icons/line_icons.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../components/calendar.dart';
+import '../../components/calendar_picker.dart';
 import '../../components/search.dart';
 import '../../components/tab.dart';
-import '../../components/todo_tile_component.dart';
+import '../../components/time_picker.dart';
+import '../../components/todo_tile.dart';
 import '../../constants/todo_tile.dart';
 import '../abstract_page.dart';
 import '../category/category_page.dart';
@@ -27,7 +28,7 @@ final class TodoListPage extends AbstractPage {
   final Finder _createTodoIcon = find.byIcon(LineIcons.paperPlane);
 
   Future<void> addTodo(String title, String description,
-      {String? category, String? date}) async {
+      {String? category, String? date, String? time}) async {
     await tester.tap(_addTodoIconLocator);
     await tester.pumpAndSettle();
     await tester.enterText(_todoTitleTextField, title);
@@ -46,9 +47,17 @@ final class TodoListPage extends AbstractPage {
     }
 
     if (date != null) {
-      final CalendarComponent calendarComponent = CalendarComponent(tester);
-      await calendarComponent.clickCalendarIcon();
-      await calendarComponent.set(date);
+      final CalendarPickerComponent calendarPickerComponent =
+          CalendarPickerComponent(tester);
+      await calendarPickerComponent.clickCalendarIcon();
+      await calendarPickerComponent.set(date);
+    }
+
+    if (time != null) {
+      final TimePickerComponent timePickerComponent =
+          TimePickerComponent(tester);
+      await timePickerComponent.clickTimeIcon();
+      await timePickerComponent.set(time);
     }
 
     await tester.tap(_createTodoIcon);
